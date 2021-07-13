@@ -4,16 +4,19 @@ import {
   MdCheckBox,
   MdRemoveCircleOutline,
 } from 'react-icons/md';
+import cn from 'classnames';
 import './TodoListItem.scss';
 
-const TodoListItem = () => {
+const TodoListItem = ({ todo, onRemove, onToggle }) => {
+  const { id, text, checked } = todo;
   return (
     <div className="TodoListItem">
-      <div className="checkbox">
-        <MdCheckBoxOutlineBlank />
-        <div className="text">할 일</div>
+      <div className={cn('checkbox', { checked })} onClick={() => onToggle(id)}>
+        {checked ? <MdCheckBox /> : <MdCheckBoxOutlineBlank />}
+        {/* 삼항 연산자 if문, checked가 트루니 true면 false면 뒤에꺼로해 */}
+        <div className="text">{text}</div>
       </div>
-      <div className="remove">
+      <div className="remove" onClick={() => onRemove(id)}>
         <MdRemoveCircleOutline />
       </div>
     </div>
